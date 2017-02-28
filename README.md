@@ -1,2 +1,2 @@
-# pluralsight-js-dev-env-plus-ts
-Modify original JS Dev Env to sue TypeScript instead of Babel for transpilation and linting. 
+# pluralsight-js-dev-env
+JS Dev environment from Pluralsight source with Cory House
