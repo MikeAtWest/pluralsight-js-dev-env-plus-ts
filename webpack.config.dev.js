@@ -5,13 +5,17 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 export default {
   devtool: 'inline-source-map',
   entry: [
-    path.resolve(__dirname, 'src/index.js')
+    path.resolve(__dirname, 'src/index.ts')
   ],
   target: 'web',
   output: {
     path: path.resolve(__dirname, 'src'),
     publicPath: '/',
     filename: 'bundle.js'
+  },
+  resolve: {
+    // Add `.ts` and `.tsx` as a resolvable extension.
+    extensions: ['.ts', '.tsx', '.js'] // note if using webpack 1 you'd also need a '' in the array as well
   },
   plugins: [
     //Set to debug mode.
@@ -26,8 +30,10 @@ export default {
   ],
   module: {
     rules: [
-      { test: /\.js$/, exclude: /node_modules/, loaders: ['babel-loader'] },
-      { test: /\.css$/, exclude: /node_modules/, loaders: ['style-loader', 'css-loader'] }
+      { test: /\.ts$/, exclude: /node_modules/, loaders: ['ts-loader'] },
+      //{ test: /\.js$/, exclude: /node_modules/, loaders: ['babel-loader'] },
+      { test: /\.css$/, loaders: ['style-loader', 'css-loader'] }
     ]
   }
-}
+
+};

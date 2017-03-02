@@ -1,4 +1,3 @@
-//import webpack from 'webpack';
 import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
@@ -16,6 +15,10 @@ export default {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
     filename: '[name].[chunkhash].js'
+  },
+  resolve: {
+    // Add `.ts` and `.tsx` as a resolvable extension.
+    extensions: ['.ts', '.tsx'] // note if using webpack 1 you'd also need a '' in the array as well
   },
   plugins: [
     //Set to debug mode.
@@ -52,27 +55,21 @@ export default {
     // Minify js
     new webpack.optimize.UglifyJsPlugin({ sourceMap: true })
   ],
-  // module: {
-  //   loaders: [
-  //     {test: /\.js$/, exclude: /node_modules/, loaders: ['babel']},
-  //     {test: /\.css$/, loader: ExtractTextPlugin.extract('css?sourceMap')}
-  //   ]
-  // }
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.ts$/,
         exclude: /node_modules/,
         use: [
           {
-            loader: 'babel-loader',
+            loader: 'ts-loader',
             options: {
-              sourceMap: 'true'
+              sourceMap: true,
+              minimize: true
             }
           }
         ]
       },
-      // { test: /\.css$/, exclude: /node_modules/, loader: ExtractTextPlugin.extract('css?sourceMap') }
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({

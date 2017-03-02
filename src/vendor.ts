@@ -14,4 +14,5 @@
 
 /* eslint-disable no-unused-vars */
 
-import fetch from 'whatwg-fetch';
+import $ from "jquery";
+import toastr from "toastr";

@@ -1,2 +1,0 @@
-Hi, I'm a file to TEST checking into Github.
-And he's some changes. 
