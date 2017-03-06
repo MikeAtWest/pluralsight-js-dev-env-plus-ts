@@ -5,7 +5,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 export default {
   devtool: 'inline-source-map',
   entry: [
-    path.resolve(__dirname, 'src/index.ts')
+    path.resolve(__dirname, 'src/index.tsx')
   ],
   target: 'web',
   output: {
@@ -31,6 +31,7 @@ export default {
   module: {
     rules: [
       { test: /\.ts$/, exclude: /node_modules/, loaders: ['ts-loader'] },
+      { test: /\.tsx$/, exclude: /node_modules/, loaders: ['ts-loader'] },
       //{ test: /\.js$/, exclude: /node_modules/, loaders: ['babel-loader'] },
       { test: /\.css$/, loaders: ['style-loader', 'css-loader'] }
     ]

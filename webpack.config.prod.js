@@ -7,7 +7,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 export default {
   devtool: 'source-map',
   entry: {
-    vendor: path.resolve(__dirname, 'src/vendor'),
+    vendor: ['jquery', 'react', 'react-dom', 'toastr'],
     main: path.resolve(__dirname, 'src/index')
   },
   target: 'web',
@@ -18,7 +18,7 @@ export default {
   },
   resolve: {
     // Add `.ts` and `.tsx` as a resolvable extension.
-    extensions: ['.ts', '.tsx'] // note if using webpack 1 you'd also need a '' in the array as well
+    extensions: ['.ts', '.tsx', '.js'] // note if using webpack 1 you'd also need a '' in the array as well
   },
   plugins: [
     //Set to debug mode.
@@ -59,6 +59,19 @@ export default {
     rules: [
       {
         test: /\.ts$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {
+              sourceMap: true,
+              minimize: true
+            }
+          }
+        ]
+      },
+      {
+        test: /\.tsx$/,
         exclude: /node_modules/,
         use: [
           {

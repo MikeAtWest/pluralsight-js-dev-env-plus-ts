@@ -8,8 +8,8 @@
     "open:src": "babel-node buildScripts/srcServer.js",
     "lint": "esw webpack.config.*  src  buildScripts",
     "lint:watch": "npm run lint -- --watch",
-    "tslint": "tslint src/**/*.ts",
-    "tslint:watch": "onchange \"src/**/*.ts\" -- npm run tslint",
+    "tslint": "tslint src/**/*.ts src/**/*.tsx",
+    "tslint:watch": "onchange \"src/**/*.ts\" \"src/**/*.tsx\" -- npm run tslint",
     "security-check": "nsp check",
     "share": "npm-run-all --parallel open:src localtunnel",
     "localtunnel": "lt --port 3000",
@@ -27,10 +27,14 @@
   "license": "MIT",
   "dependencies": {
     "jquery": "3.1.1",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
     "toastr": "2.1.2"
   },
   "devDependencies": {
     "@types/jquery": "2.0.40",
+    "@types/react": "^15.0.14",
+    "@types/react-dom": "^0.14.23",
     "@types/toastr": "2.1.32",
     "babel-cli": "6.16.0",
     "babel-core": "6.17.0",
