@@ -1,14 +1,15 @@
 import * as React from "react";
+import "./helloWorldComponent.css";
 
 interface IProps extends React.Props<HelloWorldComponent> {
-  message: string;
+  portletInstanceId: number;
 }
 
 export default class HelloWorldComponent extends React.Component<IProps, {}> {
   public render() {
     return (
-      <div>
-        <h2>{this.props.message}</h2>
+      <div className="helloWorldReact">
+        <h2>Hello World from React (Portlet Instance id: {this.props.portletInstanceId})</h2>
       </div>
     );
   }

@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///webpack:///src/components/helloWorld/helloWorldComponent.css"],"names":[],"mappings":"AAAA,oBACE,SAAW","file":"hello.css","sourcesContent":[".helloWorldReact h2 {\r\n  color: red;\r\n}\r\n\n\n\n// WEBPACK FOOTER //\n// webpack:///src/components/helloWorld/helloWorldComponent.css"],"sourceRoot":""}

@@ -2,17 +2,8 @@ import * as $ from "jquery";
 import * as toastr from "toastr";
 import { deleteUser, getUsers } from "./api/userApi";
 
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import HelloWorldComponent from "./components/helloWorld/helloWorldComponent";
-
 import "../node_modules/toastr/build/toastr.css";
 import "./index.css";
-
-ReactDOM.render(
-  <HelloWorldComponent message="Hello World from React"/>,
-  document.getElementById("root"),
-);
 
 // Populate table of users via API call.
 getUsers().then((result) => {

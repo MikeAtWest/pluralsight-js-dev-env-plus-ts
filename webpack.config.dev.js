@@ -4,14 +4,17 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 export default {
   devtool: 'inline-source-map',
-  entry: [
-    path.resolve(__dirname, 'src/index.tsx')
-  ],
+  entry: {
+    'index': path.resolve(__dirname, 'src/index.tsx'),
+    'hello': path.resolve(__dirname, 'src/hello.tsx'),
+    'news': path.resolve(__dirname, 'src/news.tsx')
+  },
   target: 'web',
   output: {
     path: path.resolve(__dirname, 'src'),
     publicPath: '/',
-    filename: 'bundle.js'
+    //filename: 'bundle.js'
+    filename: '[name].js'
   },
   resolve: {
     // Add `.ts` and `.tsx` as a resolvable extension.
@@ -25,6 +28,20 @@ export default {
     // Create HTML file that includes reference to bundled JS.
     new HtmlWebpackPlugin({
       template: 'src/index.html',
+      filename: 'index.html',
+      chunks: ['index'],
+      inject: true
+    }),
+    new HtmlWebpackPlugin({
+      template: 'src/hello.html',
+      filename: 'hello.html',
+      chunks: ['hello'],
+      inject: true
+    }),
+    new HtmlWebpackPlugin({
+      template: 'src/news.html',
+      filename: 'news.html',
+      chunks: ['news'],
       inject: true
     })
   ],

@@ -1,6 +1,6 @@
 //Set up an Express Web server.
 
-/* eslint-disable no-console */ 
+/* eslint-disable no-console */
 
 import express from 'express';
 import path from 'path';
@@ -19,8 +19,12 @@ app.use(require('webpack-dev-middleware')(compiler, {
 }))
 
 //Send all requests from our root folder to the index.html file.
+// app.get('/', function (req, res) {
+//   res.sendFile(path.join(__dirname, '../src/index.html'));
+// })
+
 app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, '../src/index.html'));
+  res.sendFile(path.join(__dirname, '../src/' + req.originalUrl));
 })
 
 app.get('/users', function(req, res) {

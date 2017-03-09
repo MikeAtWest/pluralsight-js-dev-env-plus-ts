@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///webpack:///src/components/news/newsComponent.css"],"names":[],"mappings":"AAAA,cACE,UAAY","file":"news.css","sourcesContent":[".newsReact h1 {\r\n  color: blue;\r\n}\r\n\n\n\n// WEBPACK FOOTER //\n// webpack:///src/components/news/newsComponent.css"],"sourceRoot":""}

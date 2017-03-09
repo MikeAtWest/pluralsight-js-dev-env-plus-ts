@@ -28,6 +28,10 @@ webpack(webpackConfig).run((err, stats) => {
 
   console.log(`Webpack stats: ${stats}`);
 
+  const chunksCreated = JSON.stringify(jsonStats.assetsByChunkName);
+
+  console.log(`Chunks Created:' ${chunksCreated}`);
+
   // if we got this far, the build succeeded.
   console.log(chalk.green('Your app has been built for production and written to /dist!'));
 
