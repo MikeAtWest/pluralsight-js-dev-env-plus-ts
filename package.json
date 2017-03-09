@@ -53,6 +53,7 @@
     "express": "4.14.0",
     "extract-text-webpack-plugin": "2.0.0",
     "html-webpack-plugin": "2.22.0",
+    "html-webpack-processing-plugin": "^0.1.2",
     "jsdom": "9.8.0",
     "json-schema-faker": "0.3.6",
     "json-server": "0.8.22",

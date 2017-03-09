@@ -3,11 +3,41 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import WebpackMd5Hash from 'webpack-md5-hash';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import HtmlWebpackProcessingPlugin from 'html-webpack-processing-plugin';
 
 function sortChunks(chunkOrder, chunk1, chunk2) {
   var order1 = chunkOrder.indexOf(chunk1.names[0]);
   var order2 = chunkOrder.indexOf(chunk2.names[0]);
   return order1 - order2;
+}
+
+function escapeRegExp(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
+}
+
+function replaceAll(str, find, replace) {
+  return str.replace(new RegExp(escapeRegExp(find), 'gi'), replace);
+}
+
+function transformLinksToJSON(originalHTML) {
+        //Remove <head> tags.
+        let newHTML = replaceAll(originalHTML, "<head>", "");
+        newHTML = replaceAll(newHTML, "</head>", "");
+
+        //Add comma after each link.
+        newHTML = replaceAll(newHTML, "rel=\"stylesheet\">", "rel=\"stylesheet\">,");
+        newHTML = replaceAll(newHTML, "</script>", "</script>,");
+
+        //Insert (RESOURCE_PATH) into each link.
+        newHTML = replaceAll(newHTML, "href=\"", "href=\"(RESOURCE_PATH)");
+        newHTML = replaceAll(newHTML, "src=\"", "src=\"(RESOURCE_PATH)");
+
+        //Convert to JSON notation.
+        var resources = newHTML.split(",");
+        resources.pop(); //Remove last item.
+        var resourcesString = JSON.stringify(resources, null, 2);
+
+        return resourcesString;
 }
 
 var htmlMinificationSettings = {
@@ -35,7 +65,8 @@ export default {
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
-    filename: '[name].js'
+    filename: '[name].js',
+    library: 'myLibrary'
     //filename: '[name].[chunkhash].js'
   },
   resolve: {
@@ -56,6 +87,9 @@ export default {
     new webpack.optimize.CommonsChunkPlugin({
       name: ['index', 'hello', 'news', 'vendor']
     }),
+
+    //Create 'home pages' for each of the React component types (plus the non-React 'index' example).
+
     // Create HTML file that includes reference to bundled JS. For index.html.
     new HtmlWebpackPlugin({
       template: 'src/index.html',
@@ -69,6 +103,7 @@ export default {
       // Properties you define here are available in index.html using htmlWebpackPlugin.options.varname
       trackJSToken: 'f761fe0028f6444b860f401015de3d0c'
     }),
+
     // Create HTML file that includes reference to bundled JS. For hello.html.
     new HtmlWebpackPlugin({
       template: 'src/hello.html',
@@ -80,6 +115,7 @@ export default {
       chunks: ['vendor', 'hello'],
       inject: true
     }),
+
     // Create HTML file that includes reference to bundled JS. For news.html.
     new HtmlWebpackPlugin({
       template: 'src/news.html',
@@ -91,8 +127,40 @@ export default {
       chunks: ['vendor', 'news'],
       inject: true
     }),
+
     // Minify js
-    new webpack.optimize.UglifyJsPlugin({ sourceMap: true })
+    new webpack.optimize.UglifyJsPlugin({ sourceMap: true }),
+
+    // EXPERIMENTAL: Create JSON files that ONLY includes references to the resources requried by each component.
+
+    new HtmlWebpackProcessingPlugin(),
+
+    new HtmlWebpackPlugin({
+      template: 'src/blank_template.html',
+      filename: 'news_resources.json',
+      chunksSortMode: function (chunk1, chunk2) {
+        return sortChunks(['vendor', 'news'], chunk1, chunk2);
+      },
+      chunks: ['vendor', 'news'],
+      inject: 'head',
+      postProcessing: originalHTML => {
+        return transformLinksToJSON(originalHTML);
+      }
+    }),
+
+    new HtmlWebpackPlugin({
+      template: 'src/blank_template.html',
+      filename: 'hello_resources.json',
+      chunksSortMode: function (chunk1, chunk2) {
+        return sortChunks(['vendor', 'hello'], chunk1, chunk2);
+      },
+      chunks: ['vendor', 'hello'],
+      inject: 'head',
+      postProcessing: originalHTML => {
+        return transformLinksToJSON(originalHTML);
+      }
+    })
+
   ],
   module: {
     rules: [
