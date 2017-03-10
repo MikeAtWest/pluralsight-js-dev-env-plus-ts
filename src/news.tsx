@@ -4,7 +4,7 @@ import * as ReactDOM from "react-dom";
 
 import NewsComponent from "./components/news/newsComponent";
 
-$("div[id^='news_']").each( (index, elem) => {
+$("div[id^='newsReact_']").each( (index, elem) => {
 
   const portletInstanceId: number = elem.attributes["data-portlet-instance-id"].nodeValue;
 

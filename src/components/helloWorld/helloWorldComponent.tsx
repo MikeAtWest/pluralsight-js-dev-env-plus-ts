@@ -9,7 +9,7 @@ export default class HelloWorldComponent extends React.Component<IProps, {}> {
   public render() {
     return (
       <div className="helloWorldReact">
-        <h2>Hello World from React (Portlet Instance id: {this.props.portletInstanceId})</h2>
+        <h1>Hello World from React (Portlet Instance id: {this.props.portletInstanceId})</h1>
       </div>
     );
   }
