@@ -8,6 +8,7 @@ import open from 'open';
 import webpack from 'webpack';
 import config from '../webpack.config.dev.js';
 
+
 const port = 3000;
 const app = express(); //Create an instance of Express.
 const compiler = webpack(config); //Create an instance of Webpack.
@@ -16,7 +17,9 @@ const compiler = webpack(config); //Create an instance of Webpack.
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
   publicPath: config.output.publicPath
-}))
+}));
+
+app.use(require("webpack-hot-middleware")(compiler));
 
 //Send all requests from our root folder to the index.html file.
 // app.get('/', function (req, res) {

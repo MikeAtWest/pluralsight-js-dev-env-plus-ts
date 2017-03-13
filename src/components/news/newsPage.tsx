@@ -1,6 +1,7 @@
 import * as $ from "jquery";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import { AppContainer } from "react-hot-loader";
 
 import NewsComponent from "./newsComponent";
 
@@ -8,9 +9,16 @@ $("div[id^='newsReact_']").each( (index, elem) => {
 
   const portletInstanceId: number = elem.attributes["data-portlet-instance-id"].nodeValue;
 
-  ReactDOM.render(
-    <NewsComponent portletInstanceId={portletInstanceId}/>,
-    elem,
-  );
+  // AppContainer is required for hot reloading in dev mode. AppContainer is ommitted in build.
+  const render = (Component) => {
+    ReactDOM.render(
+      <AppContainer>
+        <Component portletInstanceId={portletInstanceId} />
+      </AppContainer>,
+      elem,
+    );
+  };
+
+  render(NewsComponent);
 
 });

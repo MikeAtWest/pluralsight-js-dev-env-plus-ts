@@ -85,7 +85,8 @@ export default {
     new WebpackMd5Hash(),
     // Use CommonsChunkPlugin to create a sepaerate bundle of vendor libraries so that they will be cached seperately.
     new webpack.optimize.CommonsChunkPlugin({
-      name: ['index', 'hello', 'news', 'vendor']
+    //names: ['index', 'hello', 'news', 'vendor']
+     names: ['vendor']
     }),
 
     //Create 'home pages' for each of the React component types (plus the non-React 'index' example).
@@ -95,10 +96,10 @@ export default {
       template: 'src/index.html',
       filename: 'index.html',
       minify: htmlMinificationSettings,
-      // chunksSortMode: function (chunk1, chunk2) {
-      //   return sortChunks(['vendor', 'index'], chunk1, chunk2);
-      // },
-      // chunks: ['vendor', 'index'],
+      chunksSortMode: function (chunk1, chunk2) {
+        return sortChunks(['vendor', 'index'], chunk1, chunk2);
+      },
+      chunks: ['vendor', 'index'],
       inject: true
       // Properties you define here are available in index.html using htmlWebpackPlugin.options.varname
       //trackJSToken: 'f761fe0028f6444b860f401015de3d0c'
@@ -131,7 +132,7 @@ export default {
     // Minify js
     new webpack.optimize.UglifyJsPlugin({ sourceMap: true }),
 
-    // EXPERIMENTAL: Create JSON files that ONLY includes references to the resources requried by each component.
+    // Create JSON files that ONLY includes references to the resources requried by each component. Used by CMS when requesting reources for the portlet.
 
     new HtmlWebpackProcessingPlugin(),
 

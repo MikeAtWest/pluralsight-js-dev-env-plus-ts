@@ -4,16 +4,17 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 export default {
   devtool: 'inline-source-map',
+
   entry: {
-    'index': path.resolve(__dirname, 'src/index.tsx'),
-    'hello': path.resolve(__dirname, 'src/components/helloWorld/helloPage'),
-    'news': path.resolve(__dirname, 'src/components/news/newsPage')
+    'index': ['react-hot-loader/patch', 'webpack-hot-middleware/client?reload=true', path.resolve(__dirname, 'src/index.tsx')],
+    'hello': ['react-hot-loader/patch', 'webpack-hot-middleware/client?reload=true', path.resolve(__dirname, 'src/components/helloWorld/helloPage')],
+    'news': ['react-hot-loader/patch', 'webpack-hot-middleware/client?reload=true', path.resolve(__dirname, 'src/components/news/newsPage')]
   },
+
   target: 'web',
   output: {
     path: path.resolve(__dirname, 'src'),
     publicPath: '/',
-    //filename: 'bundle.js'
     filename: '[name].js'
   },
   resolve: {
@@ -25,6 +26,7 @@ export default {
     new webpack.LoaderOptionsPlugin({
       debug: true
     }),
+    new webpack.NoEmitOnErrorsPlugin(),
     // Create HTML file that includes reference to bundled JS.
     new HtmlWebpackPlugin({
       template: 'src/index.html',
@@ -43,12 +45,13 @@ export default {
       filename: 'newsPage.html',
       chunks: ['news'],
       inject: true
-    })
+    }),
+    new webpack.HotModuleReplacementPlugin()
   ],
   module: {
     rules: [
-      { test: /\.ts$/, exclude: /node_modules/, loaders: ['ts-loader'] },
-      { test: /\.tsx$/, exclude: /node_modules/, loaders: ['ts-loader'] },
+      { test: /\.ts$/, exclude: /node_modules/, loaders: ['react-hot-loader/webpack', 'ts-loader'] },
+      { test: /\.tsx$/, exclude: /node_modules/, loaders: ['react-hot-loader/webpack', 'ts-loader'] },
       //{ test: /\.js$/, exclude: /node_modules/, loaders: ['babel-loader'] },
       { test: /\.css$/, loaders: ['style-loader', 'css-loader'] }
     ]
