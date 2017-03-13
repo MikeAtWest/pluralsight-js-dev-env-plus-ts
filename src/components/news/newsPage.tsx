@@ -2,7 +2,7 @@ import * as $ from "jquery";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import NewsComponent from "./components/news/newsComponent";
+import NewsComponent from "./newsComponent";
 
 $("div[id^='newsReact_']").each( (index, elem) => {
 

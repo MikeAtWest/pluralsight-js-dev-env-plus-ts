@@ -57,8 +57,8 @@ export default {
   devtool: 'source-map',
   entry: {
     index: path.resolve(__dirname, 'src/index'),
-    hello: path.resolve(__dirname, 'src/hello'),
-    news: path.resolve(__dirname, 'src/news'),
+    hello: path.resolve(__dirname, 'src/components/helloWorld/helloPage'),
+    news: path.resolve(__dirname, 'src/components/news/newsPage'),
     vendor: ['jquery', 'react', 'react-dom', 'toastr']
   },
   target: 'web',
@@ -95,19 +95,19 @@ export default {
       template: 'src/index.html',
       filename: 'index.html',
       minify: htmlMinificationSettings,
-      chunksSortMode: function (chunk1, chunk2) {
-        return sortChunks(['vendor', 'index'], chunk1, chunk2);
-      },
-      chunks: ['vendor', 'index'],
-      inject: true,
+      // chunksSortMode: function (chunk1, chunk2) {
+      //   return sortChunks(['vendor', 'index'], chunk1, chunk2);
+      // },
+      // chunks: ['vendor', 'index'],
+      inject: true
       // Properties you define here are available in index.html using htmlWebpackPlugin.options.varname
-      trackJSToken: 'f761fe0028f6444b860f401015de3d0c'
+      //trackJSToken: 'f761fe0028f6444b860f401015de3d0c'
     }),
 
     // Create HTML file that includes reference to bundled JS. For hello.html.
     new HtmlWebpackPlugin({
-      template: 'src/hello.html',
-      filename: 'hello.html',
+      template: 'src/components/helloWorld/helloPage.html',
+      filename: 'helloPage.html',
       minify: htmlMinificationSettings,
       chunksSortMode: function (chunk1, chunk2) {
         return sortChunks(['vendor', 'hello'], chunk1, chunk2);
@@ -118,8 +118,8 @@ export default {
 
     // Create HTML file that includes reference to bundled JS. For news.html.
     new HtmlWebpackPlugin({
-      template: 'src/news.html',
-      filename: 'news.html',
+      template: 'src/components/news/newsPage.html',
+      filename: 'newsPage.html',
       minify: htmlMinificationSettings,
       chunksSortMode: function (chunk1, chunk2) {
         return sortChunks(['vendor', 'news'], chunk1, chunk2);

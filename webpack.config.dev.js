@@ -6,8 +6,8 @@ export default {
   devtool: 'inline-source-map',
   entry: {
     'index': path.resolve(__dirname, 'src/index.tsx'),
-    'hello': path.resolve(__dirname, 'src/hello.tsx'),
-    'news': path.resolve(__dirname, 'src/news.tsx')
+    'hello': path.resolve(__dirname, 'src/components/helloWorld/helloPage'),
+    'news': path.resolve(__dirname, 'src/components/news/newsPage')
   },
   target: 'web',
   output: {
@@ -33,14 +33,14 @@ export default {
       inject: true
     }),
     new HtmlWebpackPlugin({
-      template: 'src/hello.html',
-      filename: 'hello.html',
+      template: 'src/components/helloWorld/helloPage.html',
+      filename: 'helloPage.html',
       chunks: ['hello'],
       inject: true
     }),
     new HtmlWebpackPlugin({
-      template: 'src/news.html',
-      filename: 'news.html',
+      template: 'src/components/news/newsPage.html',
+      filename: 'newsPage.html',
       chunks: ['news'],
       inject: true
     })
