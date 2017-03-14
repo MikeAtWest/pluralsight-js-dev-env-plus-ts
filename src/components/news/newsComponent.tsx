@@ -46,8 +46,9 @@ export default class NewsComponent extends React.Component<any, any> {
     return this.setState({ newsItems: this.state.newsItems, newItemTitle: this.state.newItemTitle, newItemText: this.state.newItemText });
   }
 
-  public deleteItem(event: React.KeyboardEvent<HTMLInputElement>): void {
+  public deleteItem(event: React.KeyboardEvent<HTMLInputElement>, item: any): void {
     event.preventDefault();
+    // This is just a hack to pop off the last item...
     this.state.newsItems.pop();
     return this.setState({ newsItems: this.state.newsItems, newItemTitle: this.state.newItemTitle, newItemText: this.state.newItemText });
  }
