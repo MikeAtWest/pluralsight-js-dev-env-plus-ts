@@ -7,7 +7,7 @@ export default class NewsItem extends React.Component<any, any> {
 
   public render() {
     return (
-          <div>{this.props.newsItem.title}: {this.props.newsItem.text}</div>
+          <div>{this.props.newsItem.title}: {this.props.newsItem.text} <button onClick={(e) => this.props.onDeleteItem(e)}>X</button></div>
     );
   }
 }

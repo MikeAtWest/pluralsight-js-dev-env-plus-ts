@@ -74,6 +74,12 @@ export default {
     extensions: ['.ts', '.tsx', '.js'] // note if using webpack 1 you'd also need a '' in the array as well
   },
   plugins: [
+    // Use minified production build of React.
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    }),
     //Set to debug mode.
     new webpack.LoaderOptionsPlugin({
       debug: true
@@ -129,6 +135,18 @@ export default {
       inject: true
     }),
 
+    // Create HTML file that includes reference to bundled JS. For multiple.html.
+    new HtmlWebpackPlugin({
+      template: 'src/components/multiple/multiplePage.html',
+      filename: 'multiplePage.html',
+      minify: htmlMinificationSettings,
+      chunksSortMode: function (chunk1, chunk2) {
+        return sortChunks(['vendor', 'news', 'hello'], chunk1, chunk2);
+      },
+      chunks: ['vendor', 'news', 'hello'],
+      inject: true
+    }),
+
     // Minify js
     new webpack.optimize.UglifyJsPlugin({ sourceMap: true }),
 
@@ -168,12 +186,12 @@ export default {
       {
         test: /\.ts$/,
         exclude: /node_modules/,
-        use: [{ loader: 'ts-loader', options: { sourceMap: true, minimize: true } }]
+        use: [{ loader: 'awesome-typescript-loader', options: { sourceMap: true, minimize: true } }]
       },
       {
         test: /\.tsx$/,
         exclude: /node_modules/,
-        use: [{ loader: 'ts-loader', options: { sourceMap: true, minimize: true } }]
+        use: [{ loader: 'awesome-typescript-loader', options: { sourceMap: true, minimize: true } }]
       },
       {
         test: /\.css$/,

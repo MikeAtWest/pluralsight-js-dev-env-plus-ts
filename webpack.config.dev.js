@@ -8,7 +8,8 @@ export default {
   entry: {
     'index': ['react-hot-loader/patch', 'webpack-hot-middleware/client?reload=true', path.resolve(__dirname, 'src/index.tsx')],
     'hello': ['react-hot-loader/patch', 'webpack-hot-middleware/client?reload=true', path.resolve(__dirname, 'src/components/helloWorld/helloPage')],
-    'news': ['react-hot-loader/patch', 'webpack-hot-middleware/client?reload=true', path.resolve(__dirname, 'src/components/news/newsPage')]
+    'news': ['react-hot-loader/patch', 'webpack-hot-middleware/client?reload=true', path.resolve(__dirname, 'src/components/news/newsPage')],
+    'multiple': ['react-hot-loader/patch', 'webpack-hot-middleware/client?reload=true', path.resolve(__dirname, 'src/components/multiple/multiplePage')]
   },
 
   target: 'web',
@@ -46,12 +47,18 @@ export default {
       chunks: ['news'],
       inject: true
     }),
+    new HtmlWebpackPlugin({
+      template: 'src/components/multiple/multiplePage.html',
+      filename: 'multiplePage.html',
+      chunks: ['news', 'hello'],
+      inject: true
+    }),
     new webpack.HotModuleReplacementPlugin()
   ],
   module: {
     rules: [
-      { test: /\.ts$/, exclude: /node_modules/, loaders: ['react-hot-loader/webpack', 'ts-loader'] },
-      { test: /\.tsx$/, exclude: /node_modules/, loaders: ['react-hot-loader/webpack', 'ts-loader'] },
+      { test: /\.ts$/, exclude: /node_modules/, loaders: ['react-hot-loader/webpack', 'awesome-typescript-loader'] },
+      { test: /\.tsx$/, exclude: /node_modules/, loaders: ['react-hot-loader/webpack', 'awesome-typescript-loader'] },
       //{ test: /\.js$/, exclude: /node_modules/, loaders: ['babel-loader'] },
       { test: /\.css$/, loaders: ['style-loader', 'css-loader'] }
     ]

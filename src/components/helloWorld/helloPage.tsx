@@ -5,6 +5,12 @@ import { AppContainer } from "react-hot-loader";
 
 import HelloWorldComponent from "./helloWorldComponent";
 
+// For hot reloading
+declare var module: any;
+if (module.hot) {
+    module.hot.accept();
+}
+
 $("div[id^='helloWorld_']").each((index, elem) => {
 
   const portletInstanceId: number = elem.attributes["data-portlet-instance-id"].nodeValue;
