@@ -20,24 +20,24 @@ function replaceAll(str, find, replace) {
 }
 
 function transformLinksToJSON(originalHTML) {
-        //Remove <head> tags.
-        let newHTML = replaceAll(originalHTML, "<head>", "");
-        newHTML = replaceAll(newHTML, "</head>", "");
+  //Remove <head> tags.
+  let newHTML = replaceAll(originalHTML, "<head>", "");
+  newHTML = replaceAll(newHTML, "</head>", "");
 
-        //Add comma after each link.
-        newHTML = replaceAll(newHTML, "rel=\"stylesheet\">", "rel=\"stylesheet\">,");
-        newHTML = replaceAll(newHTML, "</script>", "</script>,");
+  //Add comma after each link.
+  newHTML = replaceAll(newHTML, "rel=\"stylesheet\">", "rel=\"stylesheet\">,");
+  newHTML = replaceAll(newHTML, "</script>", "</script>,");
 
-        //Insert (RESOURCE_PATH) into each link.
-        newHTML = replaceAll(newHTML, "href=\"", "href=\"(RESOURCE_PATH)");
-        newHTML = replaceAll(newHTML, "src=\"", "src=\"(RESOURCE_PATH)");
+  //Insert (RESOURCE_PATH) into each link.
+  newHTML = replaceAll(newHTML, "href=\"", "href=\"(RESOURCE_PATH)");
+  newHTML = replaceAll(newHTML, "src=\"", "src=\"(RESOURCE_PATH)");
 
-        //Convert to JSON notation.
-        var resources = newHTML.split(",");
-        resources.pop(); //Remove last item.
-        var resourcesString = JSON.stringify(resources, null, 2);
+  //Convert to JSON notation.
+  var resources = newHTML.split(",");
+  resources.pop(); //Remove last item.
+  var resourcesString = JSON.stringify(resources, null, 2);
 
-        return resourcesString;
+  return resourcesString;
 }
 
 var htmlMinificationSettings = {
@@ -59,6 +59,7 @@ export default {
     index: path.resolve(__dirname, 'src/index'),
     hello: path.resolve(__dirname, 'src/components/helloWorld/helloPage'),
     news: path.resolve(__dirname, 'src/components/news/newsPage'),
+    staffDirectorySearch: path.resolve(__dirname, 'src/components/staffDirectorySearch/staffDirectorySearchPage'),
     vendor: ['jquery', 'react', 'react-dom', 'toastr']
   },
   target: 'web',
@@ -91,8 +92,8 @@ export default {
     new WebpackMd5Hash(),
     // Use CommonsChunkPlugin to create a sepaerate bundle of vendor libraries so that they will be cached seperately.
     new webpack.optimize.CommonsChunkPlugin({
-    //names: ['index', 'hello', 'news', 'vendor']
-     names: ['vendor']
+      //names: ['index', 'hello', 'news', 'vendor']
+      names: ['vendor']
     }),
 
     //Create 'home pages' for each of the React component types (plus the non-React 'index' example).
@@ -135,15 +136,27 @@ export default {
       inject: true
     }),
 
+    // Create HTML file that includes reference to bundled JS. For staffDirectorySearch.html.
+    new HtmlWebpackPlugin({
+      template: 'src/components/staffDirectorySearch/staffDirectorySearchPage.html',
+      filename: 'staffDirectorySearchPage.html',
+      minify: htmlMinificationSettings,
+      chunksSortMode: function (chunk1, chunk2) {
+        return sortChunks(['vendor', 'staffDirectorySearch'], chunk1, chunk2);
+      },
+      chunks: ['vendor', 'staffDirectorySearch'],
+      inject: true
+    }),
+
     // Create HTML file that includes reference to bundled JS. For multiple.html.
     new HtmlWebpackPlugin({
       template: 'src/components/multiple/multiplePage.html',
       filename: 'multiplePage.html',
       minify: htmlMinificationSettings,
       chunksSortMode: function (chunk1, chunk2) {
-        return sortChunks(['vendor', 'news', 'hello'], chunk1, chunk2);
+        return sortChunks(['vendor', 'news', 'hello', 'staffDirectorySearch'], chunk1, chunk2);
       },
-      chunks: ['vendor', 'news', 'hello'],
+      chunks: ['vendor', 'news', 'hello', 'staffDirectorySearch'],
       inject: true
     }),
 
@@ -174,6 +187,19 @@ export default {
         return sortChunks(['vendor', 'hello'], chunk1, chunk2);
       },
       chunks: ['vendor', 'hello'],
+      inject: 'head',
+      postProcessing: originalHTML => {
+        return transformLinksToJSON(originalHTML);
+      }
+    }),
+
+    new HtmlWebpackPlugin({
+      template: 'src/blank_template.html',
+      filename: 'staffDirectorySearch_resources.json',
+      chunksSortMode: function (chunk1, chunk2) {
+        return sortChunks(['vendor', 'staffDirectorySearch'], chunk1, chunk2);
+      },
+      chunks: ['vendor', 'staffDirectorySearch'],
       inject: 'head',
       postProcessing: originalHTML => {
         return transformLinksToJSON(originalHTML);

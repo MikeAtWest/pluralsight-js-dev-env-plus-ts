@@ -3,7 +3,7 @@ import rimraf from 'rimraf';
 import fs from 'fs';
 
 let distFolder = "C:/Users/michael.mundy/Documents/VS Code/JSDevEnvPlusTS_2/pluralsight-js-dev-env-plus-ts/dist";
-let commonResourcesTypeScriptPortletsFolder = "C:/Users/michael.mundy/Source/Workspaces/v4/Common/resources/shared/controls/TypeScriptPortlets";
+let commonResourcesTypeScriptPortletsFolder = "C:/Users/michael.mundy/Source/Workspaces/v4/Common/resources/shared/controls/ReactPortlets";
 
 // Note: filter option in NCP (used to copy files) does not work (https://github.com/AvianFlu/ncp/issues/101)
 

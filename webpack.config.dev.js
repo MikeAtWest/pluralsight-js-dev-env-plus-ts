@@ -9,6 +9,7 @@ export default {
     'index': ['react-hot-loader/patch', 'webpack-hot-middleware/client?reload=true', path.resolve(__dirname, 'src/index.tsx')],
     'hello': ['react-hot-loader/patch', 'webpack-hot-middleware/client?reload=true', path.resolve(__dirname, 'src/components/helloWorld/helloPage')],
     'news': ['react-hot-loader/patch', 'webpack-hot-middleware/client?reload=true', path.resolve(__dirname, 'src/components/news/newsPage')],
+    'staffDirectorySearch': ['react-hot-loader/patch', 'webpack-hot-middleware/client?reload=true', path.resolve(__dirname, 'src/components/staffDirectorySearch/staffDirectorySearchPage')],
     'multiple': ['react-hot-loader/patch', 'webpack-hot-middleware/client?reload=true', path.resolve(__dirname, 'src/components/multiple/multiplePage')]
   },
 
@@ -45,6 +46,12 @@ export default {
       template: 'src/components/news/newsPage.html',
       filename: 'newsPage.html',
       chunks: ['news'],
+      inject: true
+    }),
+    new HtmlWebpackPlugin({
+      template: 'src/components/staffDirectorySearch/staffDirectorySearchPage.html',
+      filename: 'staffDirectorySearchPage.html',
+      chunks: ['staffDirectorySearch'],
       inject: true
     }),
     new HtmlWebpackPlugin({
