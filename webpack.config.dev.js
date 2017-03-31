@@ -57,7 +57,7 @@ export default {
     new HtmlWebpackPlugin({
       template: 'src/components/multiple/multiplePage.html',
       filename: 'multiplePage.html',
-      chunks: ['news', 'hello'],
+      chunks: ['news', 'hello', 'staffDirectorySearch'],
       inject: true
     }),
     new webpack.HotModuleReplacementPlugin()
