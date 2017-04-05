@@ -5,7 +5,7 @@ import { AppContainer } from "react-hot-loader";
 
 import HelloWorldComponent from "../helloWorld/helloWorldComponent";
 import NewsComponent from "../news/newsComponent";
-import StaffDirectorySearchComponent from "../staffDirectorySearch/staffDirectorySearchComponent";
+import SD_Search from "../staffDirectorySearch/SD_Search";
 
 // Display Hello World components.
 $("div[id^='helloWorld_']").each((index, elem) => {
@@ -50,7 +50,7 @@ $("div[id^='staffDirectorySearchReact_']").each((index, elem) => {
 
   const portletInstanceId: number = elem.attributes["data-portlet-instance-id"].nodeValue;
 
-  // AppContainer is required for hot reloading in dev mode. AppContainer is ommitted in build.
+  // AppContainer is required for hot reloading in dev mode. AppContainer is omitted in build.
   const render = (Component) => {
     ReactDOM.render(
       <AppContainer>
@@ -60,6 +60,6 @@ $("div[id^='staffDirectorySearchReact_']").each((index, elem) => {
     );
   };
 
-  render(StaffDirectorySearchComponent);
+  render(SD_Search);
 
 });

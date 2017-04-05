@@ -3,7 +3,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { AppContainer } from "react-hot-loader";
 
-import StaffDirectorySearchComponent from "./staffDirectorySearchComponent";
+import SD_Search from "../SD_Search";
 
 // For hot reloading
 declare var module: any;
@@ -25,6 +25,6 @@ $("div[id^='staffDirectorySearchReact_']").each((index, elem) => {
     );
   };
 
-  render(StaffDirectorySearchComponent);
+  render(SD_Search);
 
 });

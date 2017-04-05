@@ -9,7 +9,8 @@ export default {
     'index': ['react-hot-loader/patch', 'webpack-hot-middleware/client?reload=true', path.resolve(__dirname, 'src/index.tsx')],
     'hello': ['react-hot-loader/patch', 'webpack-hot-middleware/client?reload=true', path.resolve(__dirname, 'src/components/helloWorld/helloPage')],
     'news': ['react-hot-loader/patch', 'webpack-hot-middleware/client?reload=true', path.resolve(__dirname, 'src/components/news/newsPage')],
-    'staffDirectorySearch': ['react-hot-loader/patch', 'webpack-hot-middleware/client?reload=true', path.resolve(__dirname, 'src/components/staffDirectorySearch/staffDirectorySearchPage')],
+    'staffDirectorySearch': ['react-hot-loader/patch', 'webpack-hot-middleware/client?reload=true', path.resolve(__dirname, 'src/components/staffDirectorySearch/demoPage/staffDirectorySearchPage')],
+    'paginator': ['react-hot-loader/patch', 'webpack-hot-middleware/client?reload=true', path.resolve(__dirname, 'src/components/common/paginator/demoPage/paginatorPage')],
     'multiple': ['react-hot-loader/patch', 'webpack-hot-middleware/client?reload=true', path.resolve(__dirname, 'src/components/multiple/multiplePage')]
   },
 
@@ -49,9 +50,15 @@ export default {
       inject: true
     }),
     new HtmlWebpackPlugin({
-      template: 'src/components/staffDirectorySearch/staffDirectorySearchPage.html',
+      template: 'src/components/staffDirectorySearch/demoPage/staffDirectorySearchPage.html',
       filename: 'staffDirectorySearchPage.html',
       chunks: ['staffDirectorySearch'],
+      inject: true
+    }),
+    new HtmlWebpackPlugin({
+      template: 'src/components/common/paginator/demoPage/paginatorPage.html',
+      filename: 'paginatorPage.html',
+      chunks: ['paginator'],
       inject: true
     }),
     new HtmlWebpackPlugin({
@@ -67,7 +74,16 @@ export default {
       { test: /\.ts$/, exclude: /node_modules/, loaders: ['react-hot-loader/webpack', 'awesome-typescript-loader'] },
       { test: /\.tsx$/, exclude: /node_modules/, loaders: ['react-hot-loader/webpack', 'awesome-typescript-loader'] },
       //{ test: /\.js$/, exclude: /node_modules/, loaders: ['babel-loader'] },
-      { test: /\.css$/, loaders: ['style-loader', 'css-loader'] }
+      { test: /\.css$/, loaders: ['style-loader', 'css-loader'] },
+      {
+        test: /\.scss$/,
+        loaders: ["style-loader", "css-loader", "sass-loader"],
+        exclude: path.resolve(__dirname, 'src/app')
+      },
+      {
+        test: /\.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+        loader: 'file-loader?name=fonts/[name].[ext]'
+      }
     ]
   }
 

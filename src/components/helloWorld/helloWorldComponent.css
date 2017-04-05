@@ -7,6 +7,7 @@ div.helloWorldReact {
     margin-bottom: 20px;
     /*width: 200px;*/
     text-align: center;
+    width: 350px;
 }
 
 .helloWorldReact h1 {

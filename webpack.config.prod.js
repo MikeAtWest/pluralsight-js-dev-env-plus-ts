@@ -59,7 +59,7 @@ export default {
     index: path.resolve(__dirname, 'src/index'),
     hello: path.resolve(__dirname, 'src/components/helloWorld/helloPage'),
     news: path.resolve(__dirname, 'src/components/news/newsPage'),
-    staffDirectorySearch: path.resolve(__dirname, 'src/components/staffDirectorySearch/staffDirectorySearchPage'),
+    staffDirectorySearch: path.resolve(__dirname, 'src/components/staffDirectorySearch/demoPage/staffDirectorySearchPage'),
     vendor: ['jquery', 'react', 'react-dom', 'toastr']
   },
   target: 'web',
@@ -138,7 +138,7 @@ export default {
 
     // Create HTML file that includes reference to bundled JS. For staffDirectorySearch.html.
     new HtmlWebpackPlugin({
-      template: 'src/components/staffDirectorySearch/staffDirectorySearchPage.html',
+      template: 'src/components/staffDirectorySearch/demoPage/staffDirectorySearchPage.html',
       filename: 'staffDirectorySearchPage.html',
       minify: htmlMinificationSettings,
       chunksSortMode: function (chunk1, chunk2) {
