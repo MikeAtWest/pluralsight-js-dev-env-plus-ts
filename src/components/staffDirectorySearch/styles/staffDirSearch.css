@@ -210,7 +210,7 @@
             background: #2e353e;
             color: #ffffff; }
   .PO-staffDirectory .DIR-slideOut {
-    display: none
+    /*display: none*/
     /*END CONTACTINFO*/
     /*END MEDIA*/
     /*END SECONDARY INFO*/ }

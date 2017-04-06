@@ -1,19 +1,28 @@
 import * as React from "react";
+
+import "../../../node_modules/font-awesome/scss/font-awesome.scss"; // Font-Awesome SASS CSS sheet.
 import "./styles/common.css";
 import "./styles/staffDirSearch.css";
 
-import "../../../node_modules/font-awesome/scss/font-awesome.scss"; // Font-Awesome SASS CSS sheet.
-
-
-import { ISearchResultsProps } from "./IStaffDirectorySearch";
+import { ISearchResultsProps, IStaffBasic, IStaffExtended } from "./IStaffDirectorySearch";
 
 import PaginatorComponent from "../common/paginator/paginatorComponent";
+import SD_StaffBasic from "./SD_StaffBasic";
 
 export default class SD_SearchResults extends React.Component<ISearchResultsProps, {}> {
+
+  public StaffMembersBasic: IStaffBasic[];
+
+  public constructor(props: ISearchResultsProps) {
+    super(props);
+  }
+
   public render() {
 
-    function setBackgroundImage(url: string): object {
-      return { backgroundImage: "url(" + url + ")" };
+    const that = this;
+
+    function getStaffMemberExtended(userID: number): IStaffExtended {
+      return that.props.staffMembersExtended[userID];
     }
 
     return (
@@ -21,8 +30,12 @@ export default class SD_SearchResults extends React.Component<ISearchResultsProp
       <div>
 
         <div className="PO-contentArea">
-
           <ul className="DIR-userList">
+            {this.props.staffMembersBasic.map((staff, i) => {
+              return <SD_StaffBasic staffBasic={staff} staffExtended={getStaffMemberExtended(staff.userID)}/>;
+            })}
+
+            { /* }
             <li className="DIR-item">
               <div className="DIR-card">
                 <div className="DIR-photo" aria-hidden="true">
@@ -385,6 +398,7 @@ export default class SD_SearchResults extends React.Component<ISearchResultsProp
                 </div>
               </div>
             </li>
+            { */ }
           </ul>
 
         </div>

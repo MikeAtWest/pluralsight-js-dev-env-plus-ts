@@ -222,6 +222,15 @@ export default {
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({ fallback: "style-loader", use: [{ loader: 'css-loader', options: { sourceMap: true, minimize: true } }] })
+      },
+      {
+        test: /\.scss$/,
+        loaders: ["style-loader", "css-loader", "sass-loader"],
+        exclude: path.resolve(__dirname, 'src/app')
+      },
+      {
+        test: /\.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+        loader: 'file-loader?name=fonts/[name].[ext]'
       }
     ]
   }
